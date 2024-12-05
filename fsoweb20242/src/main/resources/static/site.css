@@ -1,0 +1,243 @@
+/* General styles */
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #1c1c1c;
+  color: #e0e0e0; /* Changed for better visibility */
+}
+
+h1,
+h2 {
+  color: #00b894;
+}
+
+.navbar {
+  background-color: #2d3436;
+}
+
+.navbar-brand,
+.nav-link {
+  color: #d3d3d3 !important;
+}
+
+.nav-link.active {
+  font-weight: bold;
+  color: #00b894 !important;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.card {
+  border: 1px solid #2d3436;
+  border-radius: 5px;
+  width: 200px;
+  margin: 10px;
+  background-color: #2d3436;
+}
+
+.card-title a {
+  color: #00b894;
+  text-decoration: none;
+}
+
+.card-title a:hover {
+  text-decoration: underline;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.list-group-item {
+  border: 1px solid #2d3436;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #2d3436;
+}
+
+.list-group-item h5 {
+  color: #00b894;
+}
+
+.btn-primary {
+  background-color: #00b894;
+  border-color: #00b894;
+  color: #1c1c1c;
+}
+
+.btn-primary:hover {
+  background-color: #019875;
+  border-color: #019875;
+}
+
+.book-container {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+  padding: 10px;
+}
+
+.book-container::-webkit-scrollbar {
+  height: 10px;
+}
+
+.book-container::-webkit-scrollbar-thumb {
+  background-color: #00b894;
+  border-radius: 10px;
+}
+
+.main-background {
+  background-image: url("https://images4.alphacoders.com/132/1326368.png");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+}
+
+.main-content {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #2d3436;
+  border-radius: 5px;
+  color: #e0e0e0; /* Ensure text color is set for main content */
+}
+
+.modal-custom .modal-content {
+  background-color: #2d3436;
+  color: #e0e0e0; /* Changed for better visibility */
+}
+
+.modal-custom .modal-header,
+.modal-custom .modal-footer {
+  border-color: #00b894;
+}
+
+.modal-custom .btn-close {
+  color: #d3d3d3;
+}
+
+.modal-custom .btn-primary {
+  background-color: #00b894;
+  border-color: #00b894;
+  color: #1c1c1c;
+}
+
+.modal-custom .btn-primary:hover {
+  background-color: #019875;
+  border-color: #019875;
+}
+
+.modal-custom .btn-secondary {
+  background-color: #636e72;
+  border-color: #636e72;
+  color: #d3d3d3;
+}
+
+.modal-custom .btn-secondary:hover {
+  background-color: #4a5458;
+  border-color: #4a5458;
+}
+
+.main-content h1,
+.main-content h2,
+.main-content label {
+  color: #00b894;
+}
+
+.text-primary {
+  color: #00b894 !important;
+}
+
+.table-dark {
+  background-color: #2d3436;
+  color: #e0e0e0;
+}
+
+.table-dark th,
+.table-dark td {
+  border-color: #1c1c1c;
+}
+
+.table-dark .table-striped tbody tr:nth-of-type(odd) {
+  background-color: #1c1c1c;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+select,
+textarea {
+  background-color: #3a3a3a; /* Lighter than the background */
+  color: #e0e0e0;
+  border: 1px solid #00b894;
+  border-radius: 5px;
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+textarea::placeholder {
+  color: #d3d3d3;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus {
+  background-color: #4a4a4a; /* Brighten up when selected */
+  color: #1c1c1c; /* Reverse color when selected */
+  border-color: #00b894;
+  box-shadow: 0 0 5px #00b894;
+  outline: none;
+}
+
+.styled-select {
+  background-color: #3a3a3a; /* Lighter than the background */
+  color: #e0e0e0;
+  border: 1px solid #00b894;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.styled-select:focus {
+  background-color: #4a4a4a; /* Brighten up when selected */
+  color: #1c1c1c; /* Reverse color when selected */
+  border-color: #00b894;
+  box-shadow: 0 0 5px #00b894;
+  outline: none;
+}
+
+.styled-textarea {
+  background-color: #3a3a3a; /* Lighter than the background */
+  color: #e0e0e0;
+  border: 1px solid #00b894;
+  border-radius: 5px;
+  padding: 10px;
+  resize: vertical;
+}
+
+.styled-textarea::placeholder {
+  color: #d3d3d3;
+}
+
+.styled-textarea:focus {
+  background-color: #4a4a4a; /* Brighten up when selected */
+  color: #1c1c1c; /* Reverse color when selected */
+  border-color: #00b894;
+  box-shadow: 0 0 5px #00b894;
+  outline: none;
+}

@@ -9,6 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 import br.univille.fsoweb20242.entity.ClientUser;
 import br.univille.fsoweb20242.service.ClientUserService;
 
+import java.util.HashMap;
+
 @Controller
 @RequestMapping("/users")
 public class ClientUserController {
@@ -19,7 +21,10 @@ public class ClientUserController {
     @GetMapping
     public ModelAndView index() {
         var userList = userService.getAll();
-        return new ModelAndView("clientuser/index", "userList", userList);
+        HashMap<String, Object> model = new HashMap<>();
+        model.put("userList", userList);
+        model.put("page", "users");
+        return new ModelAndView("clientuser/index", model);
     }
 
     @GetMapping("/new")

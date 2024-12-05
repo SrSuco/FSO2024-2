@@ -3,15 +3,17 @@
   <head th:include="layout :: htmlhead"></head>
   <body>
     <nav th:replace="layout :: menu"></nav>
-    <main class="container">
-      <h1>Users</h1>
-      <a href="/users/new" class="btn btn-primary">New</a>
-      <table class="table" id="tableusers">
+    <main class="container main-content">
+      <h1 class="text-primary">Users</h1>
+      <a href="/users/new" class="btn btn-primary mb-3">New</a>
+      <table class="table table-dark table-striped" id="tableusers">
         <thead>
-          <th>Username</th>
-          <th>Email</th>
-          <th>Creation Date</th>
-          <th></th>
+          <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Creation Date</th>
+            <th></th>
+          </tr>
         </thead>
         <tbody>
           <tr th:each="user : ${userList}">
@@ -44,7 +46,7 @@
     <script th:src="@{/scriptclientuser.js}"></script>
   </body>
 </html>
-<div class="modal" tabindex="-1" id="modaluser">
+<div class="modal modal-custom" tabindex="-1" id="modaluser">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

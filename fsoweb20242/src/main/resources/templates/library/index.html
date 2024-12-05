@@ -6,15 +6,15 @@
   </head>
   <body>
     <nav th:replace="layout :: menu"></nav>
-    <main class="container">
-      <h1>Libraries</h1>
+    <main class="container main-content">
+      <h1 class="text-primary">Libraries</h1>
       <div th:if="${#lists.isEmpty(userList)}">
-        <p>No users registered yet!</p>
-        <a href="/users" class="btn btn-primary">Register now!</a>
+        <p class="text-primary">No users registered yet!</p>
+        <a href="/users" class="btn btn-primary mb-3">Register now!</a>
       </div>
       <div th:if="${!#lists.isEmpty(userList)}">
         <div class="form-group">
-          <label for="userSelect">Select User</label>
+          <label for="userSelect" class="text-primary">Select User</label>
           <select
             id="userSelect"
             class="form-control"
@@ -30,13 +30,13 @@
         </div>
         <button
           id="addBookBtn"
-          class="btn btn-primary"
+          class="btn btn-primary mb-3"
           th:data-user-id="${selectedUserId}"
           th:onclick="window.location.href='/library/new?userId=' + ${selectedUserId}"
         >
           Add Book to Library
         </button>
-        <table class="table" id="tabelalibraries">
+        <table class="table table-dark table-striped" id="tabelalibraries">
           <thead>
             <tr>
               <th>Book</th>
@@ -82,7 +82,7 @@
     <script th:src="@{/scriptlibrary.js}"></script>
   </body>
 </html>
-<div class="modal" tabindex="-1" id="modallibrary">
+<div class="modal modal-custom" tabindex="-1" id="modallibrary">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

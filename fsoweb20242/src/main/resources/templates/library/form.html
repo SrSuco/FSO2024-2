@@ -3,13 +3,13 @@
   <head th:include="layout :: htmlhead"></head>
   <body>
     <nav th:replace="layout :: menu"></nav>
-    <main class="container">
-      <h1>Library</h1>
+    <main class="container main-content">
+      <h1 class="text-primary">Library</h1>
       <form th:action="@{/library/save}" method="post" th:object="${library}">
         <input type="hidden" th:field="*{id}" />
         <input type="hidden" th:field="*{userId}" />
         <div class="form-group">
-          <label for="bookSelect">Book</label>
+          <label for="bookSelect" class="text-primary">Book</label>
           <select id="bookSelect" th:field="*{book.id}" class="form-control">
             <option
               th:each="book : ${bookList}"
@@ -19,14 +19,14 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="txtstatus">Status</label>
+          <label for="txtstatus" class="text-primary">Status</label>
           <select id="txtstatus" th:field="*{status}" class="form-control">
             <option value="1">Whishing to read</option>
             <option value="2">Currently Reading</option>
             <option value="3">Finished</option>
           </select>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
       </form>
     </main>
     <div th:include="layout :: footer"></div>

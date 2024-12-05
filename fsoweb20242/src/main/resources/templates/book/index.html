@@ -3,15 +3,15 @@
   <head th:include="layout :: htmlhead"></head>
   <body>
     <nav th:replace="layout :: menu"></nav>
-    <main class="container">
-      <h1>Books</h1>
-      <a th:href="@{/book/new}" class="btn btn-primary">New</a>
-      <table class="table" id="tablebooks">
+    <main class="container main-content">
+      <h1 class="text-primary">Books</h1>
+      <a th:href="@{/book/new}" class="btn btn-primary mb-3">New</a>
+      <table class="table table-dark table-striped" id="tablebooks">
         <thead>
           <tr>
             <th>Title</th>
             <th>Average Rating</th>
-            <th></th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -28,6 +28,8 @@
                 class="btn btn-danger js-delete"
                 th:data-id="${book.id}"
                 th:data-csrf="${_csrf.token}"
+                data-bs-toggle="modal"
+                data-bs-target="#modalbook"
               >
                 Delete
               </button>
@@ -38,7 +40,7 @@
     </main>
     <div th:include="layout :: footer"></div>
     <script th:src="@{/scriptbook.js}"></script>
-    <div class="modal" tabindex="-1" id="modalbook">
+    <div class="modal modal-custom" tabindex="-1" id="modalbook">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">

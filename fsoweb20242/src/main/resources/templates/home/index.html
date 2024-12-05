@@ -4,7 +4,37 @@
   <body>
     <nav th:replace="layout :: menu"></nav>
     <main class="container">
-      <h1>BiblioSphere</h1>
+      <div class="text-center mt-4 main-background">
+        <h1 class="mt-4">BiblioSphere</h1>
+        <a href="/users/new" class="btn btn-primary mt-3">Register Now</a>
+      </div>
+      <div class="row mt-4">
+        <h2>Books</h2>
+        <div class="book-container">
+          <div th:each="book : ${bookList}" class="card">
+            <img
+              th:src="${book.imageUrl}"
+              class="card-img-top"
+              alt="Book Image"
+            />
+            <div class="card-body">
+              <h5 class="card-title">
+                <a
+                  th:href="@{'/book/edit/' + ${book.id}}"
+                  th:text="${book.title}"
+                  >Book Title</a
+                >
+              </h5>
+              <p class="card-text" th:text="${book.author}">Author</p>
+              <p class="card-text" th:text="${book.genre}">Genre</p>
+              <p class="card-text" th:text="${book.summary}">Summary</p>
+              <p class="card-text">
+                Rating: <span th:text="${book.averageRating}">0</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
     <div th:include="layout :: footer"></div>
   </body>

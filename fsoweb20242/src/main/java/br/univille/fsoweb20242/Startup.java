@@ -5,14 +5,11 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-
 import br.univille.fsoweb20242.entity.Book;
 import br.univille.fsoweb20242.entity.ClientUser;
-import br.univille.fsoweb20242.entity.Review;
 import br.univille.fsoweb20242.entity.Library;
 import br.univille.fsoweb20242.service.BookService;
 import br.univille.fsoweb20242.service.ClientUserService;
-import br.univille.fsoweb20242.service.ReviewService;
 import br.univille.fsoweb20242.service.LibraryService;
 
 import java.util.Date;
@@ -25,21 +22,40 @@ public class Startup {
     @Autowired
     private ClientUserService userService;
     @Autowired
-    private ReviewService reviewService;
-    @Autowired
     private LibraryService libraryService;
 
     @EventListener
     public void onApplicationEvent(ContextRefreshedEvent event){
         // Populate Books
-        var lotr = new Book();
-        lotr.setTitle("The Lord of the Rings");
-        lotr.setAuthor("J.R.R. Tolkien");
-        lotr.setGenre("Fantasy");
-        lotr.setPublishDate(new Date());
-        lotr.setSummary("An epic high-fantasy novel.");
-        lotr.setAverageRating(5.0f);
-        bookService.save(lotr);
+        var lotr1 = new Book();
+        lotr1.setTitle("The Fellowship of the Ring");
+        lotr1.setAuthor("J.R.R. Tolkien");
+        lotr1.setGenre("Fantasy");
+        lotr1.setPublishDate(new Date());
+        lotr1.setSummary("The first volume of The Lord of the Rings.");
+        lotr1.setAverageRating(5.0f);
+        lotr1.setImageUrl("https://images.booksense.com/images/210/928/9780547928210.jpg");
+        bookService.save(lotr1);
+
+        var lotr2 = new Book();
+        lotr2.setTitle("The Two Towers");
+        lotr2.setAuthor("J.R.R. Tolkien");
+        lotr2.setGenre("Fantasy");
+        lotr2.setPublishDate(new Date());
+        lotr2.setSummary("The second volume of The Lord of the Rings.");
+        lotr2.setAverageRating(5.0f);
+        lotr2.setImageUrl("https://images.booksense.com/images/210/928/9780547928210.jpg");
+        bookService.save(lotr2);
+
+        var lotr3 = new Book();
+        lotr3.setTitle("The Return of the King");
+        lotr3.setAuthor("J.R.R. Tolkien");
+        lotr3.setGenre("Fantasy");
+        lotr3.setPublishDate(new Date());
+        lotr3.setSummary("The third volume of The Lord of the Rings.");
+        lotr3.setAverageRating(5.0f);
+        lotr3.setImageUrl("https://images.booksense.com/images/210/928/9780547928210.jpg");
+        bookService.save(lotr3);
 
         var hobbit = new Book();
         hobbit.setTitle("The Hobbit");
@@ -48,43 +64,148 @@ public class Startup {
         hobbit.setPublishDate(new Date());
         hobbit.setSummary("A fantasy novel and children's book.");
         hobbit.setAverageRating(4.8f);
+        hobbit.setImageUrl("https://images.booksense.com/images/683/339/9780345339683.jpg");
         bookService.save(hobbit);
 
-        // Populate User
-        var user = new ClientUser();
-        user.setUsername("frodo");
-        user.setEmail("frodo@shire.com");
-        user.setCreationDate(new Date());
-        userService.save(user);
+        // Populate Users
+        String[] usernames = {"frodo", "gandalf", "saruman", "gimli", "legolas", "aragorn", "boromir", "sam", "merry", "pippin"};
+        String[] emails = {"frodo@shire.com", "gandalf@middleearth.com", "saruman@isengard.com", "gimli@erebor.com", "legolas@mirkwood.com", "aragorn@gondor.com", "boromir@gondor.com", "sam@shire.com", "merry@shire.com", "pippin@shire.com"};
 
-        // Populate Reviews
-        var review1 = new Review();
-        review1.setBook(lotr);
-        review1.setUser(user);
-        review1.setRating(5);
-        review1.setDescription("Amazing book!");
-        review1.setCreationDate(new Date());
-        reviewService.save(review1);
+        for (int i = 0; i < usernames.length; i++) {
+            var user = new ClientUser();
+            user.setUsername(usernames[i]);
+            user.setEmail(emails[i]);
+            user.setCreationDate(new Date());
+            userService.save(user);
 
-        var review2 = new Review();
-        review2.setBook(hobbit);
-        review2.setUser(user);
-        review2.setRating(4);
-        review2.setDescription("Great read!");
-        review2.setCreationDate(new Date());
-        reviewService.save(review2);
+            // Populate Libraries with different books and statuses
+            if (i == 0) {
+                var library1 = new Library();
+                library1.setUserId(user.getId());
+                library1.setBook(lotr1);
+                library1.setStatus(1);
+                libraryService.save(library1);
 
-        // Populate Library
-        var library1 = new Library();
-        library1.setUserId(user.getId());
-        library1.setBook(lotr);
-        library1.setStatus(1);
-        libraryService.save(library1);
+                var library2 = new Library();
+                library2.setUserId(user.getId());
+                library2.setBook(hobbit);
+                library2.setStatus(2);
+                libraryService.save(library2);
 
-        var library2 = new Library();
-        library2.setUserId(user.getId());
-        library2.setBook(hobbit);
-        library2.setStatus(1);
-        libraryService.save(library2);
+                var library3 = new Library();
+                library3.setUserId(user.getId());
+                library3.setBook(lotr2);
+                library3.setStatus(3);
+                libraryService.save(library3);
+
+                var library4 = new Library();
+                library4.setUserId(user.getId());
+                library4.setBook(lotr3);
+                library4.setStatus(1);
+                libraryService.save(library4);
+            } else if (i == 1) {
+                var library1 = new Library();
+                library1.setUserId(user.getId());
+                library1.setBook(lotr2);
+                library1.setStatus(3);
+                libraryService.save(library1);
+            } else if (i == 2) {
+                var library1 = new Library();
+                library1.setUserId(user.getId());
+                library1.setBook(hobbit);
+                library1.setStatus(2);
+                libraryService.save(library1);
+
+                var library2 = new Library();
+                library2.setUserId(user.getId());
+                library2.setBook(lotr1);
+                library2.setStatus(3);
+                libraryService.save(library2);
+            } else if (i == 3) {
+                var library1 = new Library();
+                library1.setUserId(user.getId());
+                library1.setBook(lotr3);
+                library1.setStatus(1);
+                libraryService.save(library1);
+
+                var library2 = new Library();
+                library2.setUserId(user.getId());
+                library2.setBook(lotr2);
+                library2.setStatus(2);
+                libraryService.save(library2);
+            } else if (i == 4) {
+                var library1 = new Library();
+                library1.setUserId(user.getId());
+                library1.setBook(lotr1);
+                library1.setStatus(3);
+                libraryService.save(library1);
+
+                var library2 = new Library();
+                library2.setUserId(user.getId());
+                library2.setBook(lotr3);
+                library2.setStatus(1);
+                libraryService.save(library2);
+            } else if (i == 5) {
+                var library1 = new Library();
+                library1.setUserId(user.getId());
+                library1.setBook(hobbit);
+                library1.setStatus(2);
+                libraryService.save(library1);
+
+                var library2 = new Library();
+                library2.setUserId(user.getId());
+                library2.setBook(lotr2);
+                library2.setStatus(3);
+                libraryService.save(library2);
+            } else if (i == 6) {
+                var library1 = new Library();
+                library1.setUserId(user.getId());
+                library1.setBook(lotr3);
+                library1.setStatus(1);
+                libraryService.save(library1);
+
+                var library2 = new Library();
+                library2.setUserId(user.getId());
+                library2.setBook(lotr1);
+                library2.setStatus(2);
+                libraryService.save(library2);
+            } else if (i == 7) {
+                var library1 = new Library();
+                library1.setUserId(user.getId());
+                library1.setBook(lotr2);
+                library1.setStatus(3);
+                libraryService.save(library1);
+
+                var library2 = new Library();
+                library2.setUserId(user.getId());
+                library2.setBook(hobbit);
+                library2.setStatus(1);
+                libraryService.save(library2);
+            } else if (i == 8) {
+                var library1 = new Library();
+                library1.setUserId(user.getId());
+                library1.setBook(lotr1);
+                library1.setStatus(2);
+                libraryService.save(library1);
+
+                var library2 = new Library();
+                library2.setUserId(user.getId());
+                library2.setBook(lotr2);
+                library2.setStatus(3);
+                libraryService.save(library2);
+            } else if (i == 9) {
+                var library1 = new Library();
+                library1.setUserId(user.getId());
+                library1.setBook(lotr3);
+                library1.setStatus(1);
+                libraryService.save(library1);
+
+                var library2 = new Library();
+                library2.setUserId(user.getId());
+                library2.setBook(hobbit);
+                library2.setStatus(2);
+                libraryService.save(library2);
+            }
+        }
     }   
 }

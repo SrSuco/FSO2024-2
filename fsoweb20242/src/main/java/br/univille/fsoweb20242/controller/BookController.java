@@ -25,7 +25,10 @@ public class BookController {
     @GetMapping
     public ModelAndView index(){
         var bookList = service.getAll();
-        return new ModelAndView("book/index", "bookList", bookList);
+        HashMap<String, Object> model = new HashMap<>();
+        model.put("bookList", bookList);
+        model.put("page", "books");
+        return new ModelAndView("book/index", model);
     }
 
     @GetMapping("/new")

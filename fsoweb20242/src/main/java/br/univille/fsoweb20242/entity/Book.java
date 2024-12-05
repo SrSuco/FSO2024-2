@@ -24,6 +24,8 @@ public class Book {
     private String summary;
     @Column(columnDefinition = "FLOAT DEFAULT 0")
     private float averageRating;
+    @Column
+    private String imageUrl;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Review> reviews;
@@ -75,5 +77,11 @@ public class Book {
     }
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+    public String getImageUrl() {
+        return imageUrl;
+    }
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

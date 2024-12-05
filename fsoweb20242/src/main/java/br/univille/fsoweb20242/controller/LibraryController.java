@@ -28,7 +28,9 @@ public class LibraryController {
     public ModelAndView index() {
         var clientuserlist = userService.getAll();
         if (clientuserlist.isEmpty()) {
-            return new ModelAndView("library/index");
+            HashMap<String, Object> model = new HashMap<>();
+            model.put("page", "libraries");
+            return new ModelAndView("library/index", model);
         } else {
             return new ModelAndView("redirect:/library/user/" + clientuserlist.get(0).getId());
         }
@@ -46,6 +48,7 @@ public class LibraryController {
         model.put("bookList", bookList);
         model.put("selectedUserId", userId);
         model.put("userName", userService.getById(userId).getUsername());
+        model.put("page", "libraries");
     
         return new ModelAndView("library/userLibrary", model);
     }
