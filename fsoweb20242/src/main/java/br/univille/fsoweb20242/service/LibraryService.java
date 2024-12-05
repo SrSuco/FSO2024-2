@@ -11,4 +11,5 @@ public interface LibraryService {
     Library findById(long id);
     List<Library> findByUserId(long userId);
     List<Book> findBooksInfoByUserId(long userId);
+    List<Library> findByUserIdAndBookId(long userId, long bookId);
 }

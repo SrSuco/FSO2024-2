@@ -61,4 +61,10 @@ public class LibraryServiceImpl implements LibraryService {
                         .map(Library::getBook)
                         .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Library> findByUserIdAndBookId(long userId, long bookId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findByUserIdAndBookId'");
+    }
 }
