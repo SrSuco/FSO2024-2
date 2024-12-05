@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <head th:include="layout :: htmlhead"></head>
+  <body>
+    <nav th:replace="layout :: menu"></nav>
+    <main class="container">
+      <h1>Reviews</h1>
+
+      <a href="/review/new" class="btn btn-primary">New</a>
+
+      <table class="table" id="tabelareview">
+        <thead>
+          <th>Description</th>
+          <th>Value</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr th:each="umreview : ${reviewList}">
+            <td th:text="${umreview.data}"></td>
+            <td>
+              <a
+                th:href="@{'/review/edit/' + ${umreview.id}}"
+                class="btn btn-warning"
+                >Edit</a
+              >
+
+              <button
+                class="btn btn-danger js-delete"
+                th:data-id="${umreview.id}"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+
+    <div th:include="layout :: footer"></div>
+    <script th:src="@{/scriptreview.js}"></script>
+  </body>
+</html>
+
+<div class="modal" tabindex="-1" id="modalreview">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Review</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>Confirm the deletion of the review?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          No
+        </button>
+        <button type="button" class="btn btn-primary" id="btnyes">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>

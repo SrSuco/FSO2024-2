@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <head th:include="layout :: htmlhead"></head>
+  <body>
+    <nav th:replace="layout :: menu"></nav>
+    <main class="container">
+      <h1>Users</h1>
+      <a href="/users/new" class="btn btn-primary">New</a>
+      <table class="table" id="tableusers">
+        <thead>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Creation Date</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr th:each="user : ${userList}">
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.email}"></td>
+            <td
+              th:text="${#dates.format(user.creationDate, 'yyyy-MM-dd HH:mm:ss')}"
+            ></td>
+            <td>
+              <a
+                th:href="@{'/users/edit/' + ${user.id}}"
+                class="btn btn-warning"
+                >Edit</a
+              >
+              <button
+                class="btn btn-danger js-delete"
+                th:data-id="${user.id}"
+                th:data-csrf="${_csrf.token}"
+                data-bs-toggle="modal"
+                data-bs-target="#modaluser"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+    <div th:include="layout :: footer"></div>
+    <script th:src="@{/scriptclientuser.js}"></script>
+  </body>
+</html>
+<div class="modal" tabindex="-1" id="modaluser">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete User</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>Confirm the deletion of the user?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          No
+        </button>
+        <button type="button" class="btn btn-primary" id="btnyes">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>

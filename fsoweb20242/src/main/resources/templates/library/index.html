@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <head th:include="layout :: htmlhead"></head>
+  <body>
+    <nav th:replace="layout :: menu"></nav>
+    <main class="container">
+      <h1>Libraries</h1>
+      <div th:if="${!#lists.isEmpty(userList)}">
+        <div class="form-group">
+          <label for="userSelect">Select User</label>
+          <select id="userSelect" class="form-control">
+            <option
+              th:each="clientuser, iterStat : ${userList}"
+              th:value="${clientuser.id}"
+              th:text="${clientuser.name}"
+              th:selected="${iterStat.index == 0}"
+            ></option>
+          </select>
+        </div>
+        <button
+          id="addBookBtn"
+          class="btn btn-primary"
+          th:data-user-id="${clientuser.id}"
+        >
+          Add Book to Library
+        </button>
+        <table class="table" id="tabelalibraries">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Book</th>
+              <th>Status</th>
+              <th>Creation Date</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="library : ${libraryList}">
+              <td th:text="${library.user.name}"></td>
+              <td th:text="${library.book.title}"></td>
+              <td th:text="${library.status}"></td>
+              <td
+                th:text="${#dates.format(library.creationDate, 'yyyy-MM-dd HH:mm:ss')}"
+              ></td>
+              <td>
+                <a
+                  th:href="@{'/library/edit/' + ${library.id}}"
+                  class="btn btn-warning"
+                  >Edit</a
+                >
+                <button
+                  class="btn btn-danger js-delete"
+                  th:data-id="${library.id}"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div th:if="${#lists.isEmpty(userList)}">
+        <p>No users registered.</p>
+        <a href="/users" class="btn btn-primary">Register Users</a>
+      </div>
+    </main>
+    <div th:include="layout :: footer"></div>
+    <script th:src="@{/scriptlibrary.js}"></script>
+  </body>
+</html>
+<div class="modal" tabindex="-1" id="modallibrary">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Library</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>Confirm the deletion of the library?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          No
+        </button>
+        <button type="button" class="btn btn-primary" id="btnsim">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>

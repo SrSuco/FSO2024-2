@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <head th:include="layout :: htmlhead"></head>
+  <body>
+    <nav th:replace="layout :: menu"></nav>
+    <main class="container">
+      <h1>Review</h1>
+      <form th:action="@{/review}" method="POST" th:object="${review}">
+        <input type="hidden" th:field="*{id}" />
+
+        <div class="form-group">
+          <label for="txtdata">Review Date</label>
+          <input
+            id="txtdata"
+            th:field="*{data}"
+            class="form-control"
+            type="date"
+          />
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Linked Review Items</h5>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Book</th>
+                  <th>Quantity</th>
+                  <th>Value</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="umItem, stat : *{items}">
+                  <td th:text="${umItem.book?.description}"></td>
+                  <input
+                    type="hidden"
+                    th:field="*{items[__${stat.index}__].book}"
+                  />
+
+                  <td th:text="${umItem.quantity}"></td>
+
+                  <input
+                    type="hidden"
+                    th:field="*{items[__${stat.index}__].quantity}"
+                  />
+
+                  <td th:text="${umItem.value}"></td>
+
+                  <input
+                    type="hidden"
+                    th:field="*{items[__${stat.index}__].value}"
+                  />
+
+                  <td>
+                    <button
+                      class="btn btn-danger"
+                      type="submit"
+                      name="removeitem"
+                      th:value="__${stat.index}__"
+                    >
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">New Review Item</h5>
+            <div class="form-group">
+              <label for="cbbook">Book:</label>
+              <select
+                class="form-select"
+                id="cbbook"
+                th:field="${newItem.book}"
+              >
+                <option
+                  th:each="umbook : ${bookList}"
+                  th:value="${umbook.id}"
+                  th:text="${umbook.description}"
+                ></option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="txtQuantity">Quantity:</label>
+              <input
+                type="number"
+                id="txtQuantity"
+                class="form-control"
+                th:field="${newItem.quantity}"
+              />
+            </div>
+            <div class="form-group">
+              <label for="txtValueReview">Review Value:</label>
+              <input
+                type="number"
+                id="txtValueReview"
+                class="form-control"
+                th:field="${newItem.value}"
+              />
+            </div>
+            <button type="submit" name="incitem" class="btn btn-primary">
+              Add Item
+            </button>
+          </div>
+        </div>
+        <button type="submit" name="save" class="btn btn-primary">
+          Submit
+        </button>
+      </form>
+    </main>
+
+    <div th:include="layout :: footer"></div>
+  </body>
+</html>

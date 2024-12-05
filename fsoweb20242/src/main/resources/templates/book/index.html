@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <head th:include="layout :: htmlhead"></head>
+  <body>
+    <nav th:replace="layout :: menu"></nav>
+    <main class="container">
+      <h1>Books</h1>
+      <a th:href="@{/book/new}" class="btn btn-primary">New</a>
+      <table class="table" id="tablebooks">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Average Rating</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="book : ${bookList}">
+            <td th:text="${book.title}"></td>
+            <td
+              th:text="${book.averageRating == 0 ? 'Not Rated' : book.averageRating}"
+            ></td>
+            <td>
+              <a th:href="@{'/book/edit/' + ${book.id}}" class="btn btn-warning"
+                >Edit</a
+              >
+              <button
+                class="btn btn-danger js-delete"
+                th:data-id="${book.id}"
+                th:data-csrf="${_csrf.token}"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+    <div th:include="layout :: footer"></div>
+    <script th:src="@{/scriptbook.js}"></script>
+    <div class="modal" tabindex="-1" id="modalbook">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Delete Book</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>Confirm the deletion of the book?</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              No
+            </button>
+            <button type="button" class="btn btn-primary" id="btnsim">
+              Yes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

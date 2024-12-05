@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <head th:include="layout :: htmlhead"></head>
+  <body>
+    <nav th:replace="layout :: menu"></nav>
+    <main class="container">
+      <h1>Book</h1>
+      <form th:action="@{/book}" method="POST" th:object="${book}">
+        <input type="hidden" th:field="*{id}" />
+        <div class="form-group">
+          <label for="txttitle">Title</label>
+          <input
+            id="txttitle"
+            th:field="*{title}"
+            class="form-control"
+            type="text"
+          />
+        </div>
+        <div class="form-group">
+          <label for="txtauthor">Author</label>
+          <input
+            id="txtauthor"
+            th:field="*{author}"
+            class="form-control"
+            type="text"
+          />
+        </div>
+        <div class="form-group">
+          <label for="txtgenre">Genre</label>
+          <input
+            id="txtgenre"
+            th:field="*{genre}"
+            class="form-control"
+            type="text"
+          />
+        </div>
+        <div class="form-group">
+          <label for="txtpublishdate">Publish Date</label>
+          <input
+            id="txtpublishdate"
+            th:field="*{publishDate}"
+            class="form-control"
+            type="date"
+          />
+        </div>
+        <div class="form-group">
+          <label for="txtsummary">Summary</label>
+          <textarea
+            id="txtsummary"
+            th:field="*{summary}"
+            class="form-control"
+          ></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </main>
+    <div th:include="layout :: footer"></div>
+  </body>
+</html>
