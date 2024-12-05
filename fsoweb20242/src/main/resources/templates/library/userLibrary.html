@@ -19,7 +19,7 @@
             <option
               th:each="clientuser : ${userList}"
               th:value="${clientuser.id}"
-              th:text="${clientuser.id}"
+              th:text="${clientuser.username}"
               th:selected="${clientuser.id == selectedUserId}"
             ></option>
           </select>
