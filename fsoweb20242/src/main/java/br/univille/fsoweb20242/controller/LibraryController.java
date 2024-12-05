@@ -11,6 +11,7 @@ import br.univille.fsoweb20242.entity.Library;
 import br.univille.fsoweb20242.service.LibraryService;
 import br.univille.fsoweb20242.service.ClientUserService;
 import br.univille.fsoweb20242.service.BookService;
+import br.univille.fsoweb20242.entity.Book;
 
 @Controller
 @RequestMapping("/library")
@@ -25,24 +26,45 @@ public class LibraryController {
 
     @GetMapping
     public ModelAndView index() {
-        var libraryList = service.getAll();
-        return new ModelAndView("library/index", "libraryList", libraryList);
+        var clientuserlist = userService.getAll();
+        if (clientuserlist.isEmpty()) {
+            return new ModelAndView("library/index");
+        } else {
+            return new ModelAndView("redirect:/library/user/" + clientuserlist.get(0).getId());
+        }
+    }
+
+    @GetMapping("/user/{userId}")
+    public ModelAndView viewUserLibrary(@PathVariable long userId) {
+        var libraryList = service.findByUserId(userId);
+        var clientuserlist = userService.getAll();
+        var bookList = service.findBooksInfoByUserId(userId);
+    
+        HashMap<String, Object> model = new HashMap<>();
+        model.put("libraryList", libraryList);
+        model.put("userList", clientuserlist);
+        model.put("bookList", bookList);
+        model.put("selectedUserId", userId);
+        model.put("userName", userService.getById(userId).getUsername());
+    
+        return new ModelAndView("library/userLibrary", model);
     }
 
     @GetMapping("/new")
-    public ModelAndView newLibrary() {
+    public ModelAndView newLibrary(@RequestParam("userId") long userId) {
         var library = new Library();
+        library.setUserId(userId);
         HashMap<String, Object> data = new HashMap<>();
         data.put("library", library);
-        data.put("userList", userService.getAll());
         data.put("bookList", bookService.getAll());
         return new ModelAndView("library/form", data);
     }
 
-    @PostMapping
-    public ModelAndView save(Library library) {
+    @PostMapping("/save")
+    public ModelAndView save(@ModelAttribute Library library, @RequestParam("book.id") long bookId) {
+        library.setBook(bookService.getById(bookId));
         service.save(library);
-        return new ModelAndView("redirect:/library");
+        return new ModelAndView("redirect:/library/user/" + library.getUserId());
     }
 
     @GetMapping("/edit/{id}")
@@ -70,13 +92,15 @@ public class LibraryController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/user/{userId}")
-    public List<Library> findByUserId(@PathVariable long userId) {
-        return service.findByUserId(userId);
+    @GetMapping("/user/{userId}/book/{bookId}")
+    public ResponseEntity<List<Library>> findByUserIdAndBookId(@PathVariable long userId, @PathVariable long bookId) {
+        List<Library> libraries = service.findByUserIdAndBookId(userId, bookId);
+        return ResponseEntity.ok(libraries);
     }
 
-    @GetMapping("/user/{userId}/book/{bookId}")
-    public List<Library> findByUserIdAndBookId(@PathVariable long userId, @PathVariable long bookId) {
-        return service.findByUserIdAndBookId(userId, bookId);
+    @GetMapping("/user/{userId}/books")
+    public ResponseEntity<List<Book>> getBooksInfoByUserId(@PathVariable long userId) {
+        List<Book> books = service.findBooksInfoByUserId(userId);
+        return ResponseEntity.ok(books);
     }
 }

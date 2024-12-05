@@ -1,6 +1,8 @@
 package br.univille.fsoweb20242.entity;
 
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
 import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -11,14 +13,11 @@ public class Library {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    @JsonManagedReference
-    private ClientUser user;
+    @Column(name = "user_id", nullable = false)
+    private long userId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id", nullable = false)
-    @JsonManagedReference
     private Book book;
 
     @Column(nullable = false)
@@ -36,12 +35,12 @@ public class Library {
         this.id = id;
     }
 
-    public ClientUser getUser() {
-        return user;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUser(ClientUser user) {
-        this.user = user;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public Book getBook() {

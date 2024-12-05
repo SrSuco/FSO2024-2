@@ -14,11 +14,17 @@ import br.univille.fsoweb20242.service.BookService;
 @Service
 public class BookServiceImpl implements BookService {
 
+    
     @Autowired
     private BookRepository repository;
     @Autowired
     private ReviewRepository reviewRepository;
-
+    
+    @Override
+    public Book findById(long id) {
+        return repository.findById(id).orElse(null);
+    }
+    
     @Override
     public List<Book> getAll() {
         return repository.findAll();

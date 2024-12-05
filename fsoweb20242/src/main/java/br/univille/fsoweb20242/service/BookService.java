@@ -10,4 +10,5 @@ public interface BookService {
     Book getById(long id);
     boolean hasUserRatedBook(long userId, long id);
     void updateBookRating(long bookId);
+    Book findById(long id);
 }

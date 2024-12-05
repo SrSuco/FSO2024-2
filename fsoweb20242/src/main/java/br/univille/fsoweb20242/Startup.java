@@ -76,17 +76,15 @@ public class Startup {
 
         // Populate Library
         var library1 = new Library();
+        library1.setUserId(user.getId());
         library1.setBook(lotr);
-        library1.setUser(user);
-        library1.setStatus(1); // 1 for read
-        library1.setCreationDate(new Date());
+        library1.setStatus(1);
         libraryService.save(library1);
 
         var library2 = new Library();
+        library2.setUserId(user.getId());
         library2.setBook(hobbit);
-        library2.setUser(user);
-        library2.setStatus(0); // 0 for unread
-        library2.setCreationDate(new Date());
+        library2.setStatus(1);
         libraryService.save(library2);
     }   
 }

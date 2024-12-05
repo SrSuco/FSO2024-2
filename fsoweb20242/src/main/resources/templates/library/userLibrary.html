@@ -5,10 +5,6 @@
     <nav th:replace="layout :: menu"></nav>
     <main class="container">
       <h1>Libraries</h1>
-      <div th:if="${#lists.isEmpty(userList)}">
-        <p>No users registered yet!</p>
-        <a href="/users" class="btn btn-primary">Register now!</a>
-      </div>
       <div th:if="${!#lists.isEmpty(userList)}">
         <div class="form-group">
           <label for="userSelect">Select User</label>
@@ -20,7 +16,7 @@
             <option
               th:each="clientuser : ${userList}"
               th:value="${clientuser.id}"
-              th:text="${clientuser.name}"
+              th:text="${clientuser.id}"
               th:selected="${clientuser.id == selectedUserId}"
             ></option>
           </select>

@@ -1,71 +1,67 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const deleteButtons = document.querySelectorAll(".js-delete");
-  const modal = new bootstrap.Modal(document.getElementById("modallibrary"));
-  const btnYes = document.getElementById("btnsim");
-  const userSelect = document.getElementById("userSelect");
-  const addBookBtn = document.getElementById("addBookBtn");
-
-  deleteButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      const libraryId = this.getAttribute("data-id");
-      btnYes.setAttribute("data-id", libraryId);
-      modal.show();
-    });
+(function () {
+  $("#tabelalibraries").on("click", ".js-delete", function () {
+    let clickedButton = $(this);
+    $("#btnsim").attr("data-id", clickedButton.attr("data-id"));
+    $("#modallibrary").modal("show");
   });
 
-  btnYes.addEventListener("click", function () {
-    const libraryId = this.getAttribute("data-id");
-    fetch(`/library/delete/${libraryId}`, {
+  $(document).on("click", "#btnsim", function () {
+    let clickedButton = $(this);
+    let id = clickedButton.attr("data-id");
+    $.ajax({
+      url: "/library/delete/" + id,
       method: "DELETE",
-    }).then(() => {
-      modal.hide();
-      location.reload();
+      success: function () {
+        $("#modallibrary").modal("hide");
+        location.reload();
+      },
     });
   });
 
   function updateLibraryTable(userId) {
-    fetch(`/library/user/${userId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        // Update the table with the user's libraries
-        const tableBody = document.querySelector("#tabelalibraries tbody");
-        tableBody.innerHTML = "";
-        data.forEach((library) => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${library.user.name}</td>
+    $.getJSON(`/library/user/${userId}`, function (data) {
+      const tableBody = $("#tabelalibraries tbody");
+      tableBody.empty();
+      data.forEach((library) => {
+        const statusText =
+          library.status === 1
+            ? "Whishing to read"
+            : library.status === 2
+            ? "Currently Reading"
+            : "Finished";
+        const row = `
+          <tr>
             <td>${library.book.title}</td>
-            <td>${library.status}</td>
+            <td>${statusText}</td>
             <td>${new Date(library.creationDate).toLocaleString()}</td>
             <td>
-              <a href="/library/alterar/${
-                library.id
-              }" class="btn btn-warning">Edit</a>
+              <a href="/library/edit/${library.userId}/${
+          library.book.id
+        }" class="btn btn-warning">Edit</a>
               <button class="btn btn-danger js-delete" data-id="${
                 library.id
               }">Delete</button>
             </td>
-          `;
-          tableBody.appendChild(row);
-        });
+          </tr>
+        `;
+        tableBody.append(row);
       });
-  }
-
-  userSelect.addEventListener("change", function () {
-    const userId = this.value;
-    updateLibraryTable(userId);
-  });
-
-  if (addBookBtn) {
-    addBookBtn.addEventListener("click", function () {
-      const userId = userSelect.value;
-      if (userId) {
-        window.location.href = `/library/addBook/${userId}`;
-      }
     });
   }
 
-  if (userSelect.value) {
-    updateLibraryTable(userSelect.value);
+  $("#userSelect").change(function () {
+    const userId = $(this).val();
+    updateLibraryTable(userId);
+  });
+
+  $("#addBookBtn").click(function () {
+    const userId = $(this).attr("data-user-id");
+    if (userId) {
+      window.location.href = `/library/new?userId=${userId}`;
+    }
+  });
+
+  if ($("#userSelect").val()) {
+    updateLibraryTable($("#userSelect").val());
   }
-});
+})();

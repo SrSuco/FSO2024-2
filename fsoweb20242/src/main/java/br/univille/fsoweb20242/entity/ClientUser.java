@@ -26,10 +26,6 @@ public class ClientUser {
     @JsonBackReference
     private List<Review> reviews;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonBackReference
-    private List<Library> libraries;
-
     public long getId() {
         return id;
     }
@@ -59,11 +55,5 @@ public class ClientUser {
     }
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
-    }
-    public List<Library> getLibraries() {
-        return libraries;
-    }
-    public void setLibraries(List<Library> libraries) {
-        this.libraries = libraries;
     }
 }
