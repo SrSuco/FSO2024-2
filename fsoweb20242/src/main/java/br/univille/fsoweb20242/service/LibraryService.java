@@ -9,7 +9,6 @@ public interface LibraryService {
     Library save(Library library);
     void delete(long id);
     Library findById(long id);
-    List<Library> findByUserIdAndBookId(long userId, long bookId);
     List<Library> findByUserId(long userId);
     List<Book> findBooksInfoByUserId(long userId);
 }

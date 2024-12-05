@@ -50,11 +50,6 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public List<Library> findByUserIdAndBookId(long userId, long bookId) {
-        return repository.findByUserIdAndBookId(userId, bookId);
-    }
-
-    @Override
     public List<Library> findByUserId(long userId) {
         return repository.findByUserId(userId);
     }

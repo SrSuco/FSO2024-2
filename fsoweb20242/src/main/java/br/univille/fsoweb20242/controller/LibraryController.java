@@ -79,8 +79,12 @@ public class LibraryController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id) {
-        service.delete(id);
-        return ResponseEntity.noContent().build();
+        Library library = service.findById(id);
+        if (library != null) {
+            service.delete(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/{id}")

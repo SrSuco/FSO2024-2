@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-  <head th:include="layout :: htmlhead"></head>
+  <head th:include="layout :: htmlhead">
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+  </head>
   <body>
     <nav th:replace="layout :: menu"></nav>
     <main class="container">
@@ -57,6 +60,11 @@
                 <button
                   class="btn btn-danger js-delete"
                   th:data-id="${library.id}"
+                  th:data-user-id="${library.userId}"
+                  th:data-book-id="${library.book.id}"
+                  th:data-csrf="${_csrf.token}"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modallibrary"
                 >
                   Delete
                 </button>

@@ -1,19 +1,26 @@
 (function () {
+  const csrfToken = $("meta[name='_csrf']").attr("content");
+  const csrfHeader = $("meta[name='_csrf_header']").attr("content");
+
   $("#tabelalibraries").on("click", ".js-delete", function () {
     let clickedButton = $(this);
     $("#btnsim").attr("data-id", clickedButton.attr("data-id"));
+    $("#btnsim").attr("data-csrf", clickedButton.attr("data-csrf"));
     $("#modallibrary").modal("show");
   });
 
   $(document).on("click", "#btnsim", function () {
     let clickedButton = $(this);
     let id = clickedButton.attr("data-id");
+    let csrfToken = clickedButton.attr("data-csrf");
     $.ajax({
-      url: "/library/delete/" + id,
+      url: `/library/delete/${id}`,
       method: "DELETE",
+      headers: {
+        "X-CSRF-TOKEN": csrfToken,
+      },
       success: function () {
-        $("#modallibrary").modal("hide");
-        location.reload();
+        window.location.href = "/library";
       },
     });
   });
@@ -35,12 +42,12 @@
             <td>${statusText}</td>
             <td>${new Date(library.creationDate).toLocaleString()}</td>
             <td>
-              <a href="/library/edit/${library.userId}/${
-          library.book.id
-        }" class="btn btn-warning">Edit</a>
+              <a href="/library/edit/${
+                library.id
+              }" class="btn btn-warning">Edit</a>
               <button class="btn btn-danger js-delete" data-id="${
                 library.id
-              }">Delete</button>
+              }" data-bs-toggle="modal" data-bs-target="#modallibrary">Delete</button>
             </td>
           </tr>
         `;

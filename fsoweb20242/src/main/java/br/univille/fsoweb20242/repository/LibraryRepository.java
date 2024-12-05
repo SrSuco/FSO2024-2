@@ -9,5 +9,4 @@ import java.util.List;
 public interface LibraryRepository extends JpaRepository<Library, Long> {
     Library getReferenceById(long id);
     List<Library> findByUserId(long userId);
-    List<Library> findByUserIdAndBookId(long userId, long bookId);
 }
