@@ -44,7 +44,7 @@ public class Startup {
         lotr2.setPublishDate(new Date());
         lotr2.setSummary("The second volume of The Lord of the Rings.");
         lotr2.setAverageRating(5.0f);
-        lotr2.setImageUrl("https://images.booksense.com/images/210/928/9780547928210.jpg");
+        lotr2.setImageUrl("https://i.pinimg.com/564x/56/82/d1/5682d1a75da324bf5c429445f9c7ccc3.jpg");
         bookService.save(lotr2);
 
         var lotr3 = new Book();
@@ -54,7 +54,7 @@ public class Startup {
         lotr3.setPublishDate(new Date());
         lotr3.setSummary("The third volume of The Lord of the Rings.");
         lotr3.setAverageRating(5.0f);
-        lotr3.setImageUrl("https://images.booksense.com/images/210/928/9780547928210.jpg");
+        lotr3.setImageUrl("https://upload.wikimedia.org/wikipedia/en/thumb/1/11/The_Return_of_the_King_cover.gif/220px-The_Return_of_the_King_cover.gif");
         bookService.save(lotr3);
 
         var hobbit = new Book();
