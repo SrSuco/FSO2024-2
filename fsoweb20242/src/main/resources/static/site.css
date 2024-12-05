@@ -241,3 +241,45 @@ textarea:focus {
   box-shadow: 0 0 5px #00b894;
   outline: none;
 }
+
+.custom-select {
+  background-color: #3a3a3a; /* Lighter than the background */
+  color: #e0e0e0;
+  border: 1px solid #00b894;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.custom-select option {
+  background-color: #3a3a3a; /* Match the select background */
+  color: #e0e0e0;
+}
+
+.custom-select:focus {
+  background-color: #4a4a4a; /* Brighten up when selected */
+  color: #e0e0e0; /* Keep text color the same */
+  border-color: #00b894;
+  box-shadow: 0 0 5px #00b894;
+  outline: none;
+}
+
+.custom-select {
+  background-color: #3a3a3a; /* Lighter than the background */
+  color: #e0e0e0;
+  border: 1px solid #00b894;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.custom-select option {
+  background-color: #3a3a3a; /* Match the select background */
+  color: #e0e0e0;
+}
+
+.custom-select:focus {
+  background-color: #4a4a4a; /* Brighten up when selected */
+  color: #e0e0e0; /* Keep text color the same */
+  border-color: #00b894;
+  box-shadow: 0 0 5px #00b894;
+  outline: none;
+}
